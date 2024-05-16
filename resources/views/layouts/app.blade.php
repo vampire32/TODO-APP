@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} - How to Create Livewire CRUD using Jetstream & Tailwind CSS in Laravel 11 - Techsolutionstuff</title>
+    <title>{{ config('app.name', 'Laravel') }}Laravel Livewire</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -41,5 +41,8 @@
 @stack('modals')
 
 @livewireScripts
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<x-livewire-alert::scripts />
 </body>
 </html>
