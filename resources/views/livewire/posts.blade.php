@@ -48,14 +48,14 @@
 
                 @foreach($posts as $index => $post)
                     <tr>
-                        <td class="border px-4 py-2">{{ $index + 1 }}</td>
+                        <td class="border px-4 py-2">{{ $user_id}}</td>
                         <td class="border px-4 py-2">{{ $post->title }}</td>
                         <td class="border px-4 py-2">{{ $post->body }}</td>
                         <td class="border px-4 py-2">
                             <button wire:click="edit({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                             </button>
-                            <button wire:click="delete({{ $post->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            <button wire:click="delete({{ $post->id }})"  wire:confirm="Are you sure you want to delete this post?" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                   <svg enable-background="new 0 0 512 512" height="24" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M444.852,66.908h-99.339V47.04c0-21.943-17.792-39.736-39.736-39.736h-99.339   c-21.944,0-39.736,17.793-39.736,39.736v19.868H67.363v19.868h20.47l19.887,377.489c0,21.944,17.792,39.736,39.736,39.736h218.546   c21.944,0,39.736-17.792,39.736-39.736l19.538-377.489h19.577V66.908z M186.57,47.04c0-10.962,8.926-19.868,19.868-19.868h99.339   c10.962,0,19.868,8.906,19.868,19.868v19.868H186.57V47.04z M385.908,463.236l-0.039,0.505v0.524   c0,10.943-8.906,19.868-19.868,19.868H147.455c-10.942,0-19.868-8.925-19.868-19.868v-0.524l-0.019-0.523L107.72,86.776h297.669   L385.908,463.236z" fill="#37404D"/><rect fill="#37404D" height="317.885" width="19.868" x="246.173" y="126.511"/><polygon fill="#37404D" points="206.884,443.757 186.551,126.493 166.722,127.753 187.056,445.017  "/><polygon fill="#37404D" points="345.649,127.132 325.82,125.891 305.777,443.776 325.606,445.017  "/></g></svg>
                             </button>
                         </td>

@@ -2,20 +2,24 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Post;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Posts extends Component
 {
+    use LivewireAlert;
     public $posts, $title, $body, $post_id;
     public $isOpen = 0;
     public $searchTerm = '';
+    public $user_id;
 
     protected $listeners = ['searchUpdated'];
 
     public function loadPosts()
     {
-        $this->posts = Post::where('title', 'like', '%' . $this->searchTerm . '%')->get();
+        $this->posts = Post::where('title', 'like', '%' . $this->searchTerm . '%')->where(['user_id'=>request()->user()->id])->get();
     }
 
 
@@ -26,8 +30,9 @@ class Posts extends Component
     }
     public function mount(){
         $this->loadPosts();
+        $this->user_id=request()->user()->id;
 
-        $this->posts = Post::all();
+        $this->posts = Post::where(['user_id'=>request()->user()->id])->get();
 
     }
 
@@ -60,15 +65,25 @@ class Posts extends Component
 
     public function store()
     {
+
         $this->validate([
             'title' => 'required',
             'body' => 'required',
         ]);
+        if($this->post_id){
+            Post::update(['id' => $this->post_id], [
+                'title' => $this->title,
+                'body' => $this->body,
 
-        Post::updateOrCreate(['id' => $this->post_id], [
-            'title' => $this->title,
-            'body' => $this->body
-        ]);
+
+            ]);
+
+        }
+        else{
+            Post::create(['title'=>$this->title,'body'=>$this->body,'user_id'=>$this->user_id]);
+        }
+
+
 
         session()->flash('message',
             $this->post_id ? 'Post Updated Successfully.' : 'Post Created Successfully.');
@@ -93,5 +108,11 @@ class Posts extends Component
     {
         Post::find($id)->delete();
         session()->flash('message', 'Post Deleted Successfully.');
+
+
+    }
+    public function refresh()
+    {
+        $this->posts = Post::all();
     }
 }

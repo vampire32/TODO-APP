@@ -28,6 +28,10 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public function todos(){
+        return $this->hasMany(Post::class);
+
+    }
 
     /**
      * The attributes that should be hidden for serialization.
